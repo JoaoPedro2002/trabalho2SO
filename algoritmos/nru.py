@@ -1,6 +1,8 @@
 from algoritmos.abstract_algoritmo import AlgoritmoAbstrato
 import random
 
+# TODO Revisar
+
 
 class NRU(AlgoritmoAbstrato):
     def __init__(self, quantidade_quadros: int, refresh_m, refresh_r):

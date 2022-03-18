@@ -8,8 +8,7 @@ class GeradorSequencia:
         self.__numero_paginas = numero_paginas
 
     def _gera_sequencia_normal(self):
-        alocacoes = sum(perfil[0] * perfil[1] for perfil in self.__perfil)
-        multiplicador = int(self.__numero_paginas / alocacoes)
+        multiplicador = int(self.__numero_paginas / sum(perfil[0] * perfil[1] for perfil in self.__perfil))
         paginas_ordenadas = []
         pagina = 0
         for item in self.__perfil:
