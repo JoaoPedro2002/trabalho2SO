@@ -7,8 +7,6 @@ class NRU(AlgoritmoAbstrato):
         self.__quantidade_page_faults = 0
         self.__quantidade_quadros = quantidade_quadros
         self.__quadros_memoria = []
-        for i in range(self.__quantidade_quadros):
-            self.__quadros_memoria.append(None)
         self.__pagina_referenciada = {}
         self.__pagina_modificada = {}
         self.__contador_incrementaM = 0
@@ -42,10 +40,9 @@ class NRU(AlgoritmoAbstrato):
         self.__pagina_modificada[pagina] = 0
         if pagina in self.__quadros_memoria:
             return
-        for i in range(self.__quantidade_quadros):
-            if self.__quadros_memoria[i] is None:
-                self.__quadros_memoria[i] = pagina
-                return
+        if len(self.__quadros_memoria) < self.__quantidade_quadros:
+            self.__quadros_memoria.append(pagina)
+            return
         self.__quantidade_page_faults += 1
         classe0 = []
         classe1 = []
@@ -88,3 +85,11 @@ class NRU(AlgoritmoAbstrato):
         self.__pagina_modificada[pagina_sorteada] = 0
         self.__pagina_referenciada[pagina] = 1
         self.__pagina_modificada[pagina] = 0
+
+    def clean(self):
+        self.__quadros_memoria = []
+        self.__quantidade_page_faults = 0
+        self.__pagina_referenciada = {}
+        self.__pagina_modificada = {}
+        self.__contador_incrementaM = 0
+        self.__contador_zera_todosR = 0

@@ -6,8 +6,6 @@ class LRU(AlgoritmoAbstrato):
         self.__quantidade_page_faults = 0
         self.__quantidade_quadros = quantidade_quadros
         self.__quadros_memoria = []
-        for i in range(self.__quantidade_quadros):
-            self.__quadros_memoria.append(None)
 
     @property
     def quantidade_page_faults(self):
@@ -18,10 +16,13 @@ class LRU(AlgoritmoAbstrato):
             self.__quadros_memoria.remove(pagina)
             self.__quadros_memoria.insert(0, pagina)
             return
-        for i in range(self.__quantidade_quadros):
-            if self.__quadros_memoria[i] is None:
-                self.__quadros_memoria[i] = pagina
-                return
+        if len(self.__quadros_memoria) < self.__quantidade_quadros:
+            self.__quadros_memoria.append(pagina)
+            return
         self.__quantidade_page_faults += 1
         self.__quadros_memoria.pop()
         self.__quadros_memoria.insert(0, pagina)
+
+    def clean(self):
+        self.__quadros_memoria = []
+        self.__quantidade_page_faults = 0

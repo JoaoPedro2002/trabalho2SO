@@ -15,3 +15,7 @@ class AlgoritmoAbstrato(ABC):
     @abstractmethod
     def insere_pagina(self, pagina):
         pass
+
+    @abstractmethod
+    def clean(self):
+        pass

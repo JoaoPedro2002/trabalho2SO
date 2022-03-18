@@ -3,19 +3,20 @@ from algoritmos.fifo import FIFO
 from algoritmos.lru import LRU
 from algoritmos.nru import NRU
 from algoritmos.segunda_chance import SegundaChance
-import gc
 
+PERFIL = [(25, 16), (25, 8), (25, 4), (25, 2)]
+PAGINAS = 1000000
+QUADROS = 60
+ITERACOES = 50
 
 if __name__ == "__main__":
-    gerador = GeradorSequencia([(25, 16), (25, 8), (25, 4), (25, 2)], 1000500)
-    gerador.gera_sequencia_normal()
+    gerador = GeradorSequencia(PERFIL, PAGINAS)
     embaralhada = gerador.gera_sequencia_embaralhada()
-    print("Total de páginas: ", gerador.acessos_realizados)
-    qtidade_quadros = 60
-    fifo = FIFO(qtidade_quadros)
-    relogio = SegundaChance(qtidade_quadros)
-    nru = NRU(qtidade_quadros, 1000, 10000)
-    lru = LRU(qtidade_quadros)
+    print("Total de páginas: ", PAGINAS)
+    fifo = FIFO(QUADROS)
+    relogio = SegundaChance(QUADROS)
+    nru = NRU(QUADROS, 1000, 10000)
+    lru = LRU(QUADROS)
     for pagina in embaralhada:
         fifo.insere_pagina(pagina)
         relogio.insere_pagina(pagina)
@@ -27,16 +28,13 @@ if __name__ == "__main__":
     print('Quantidade de page faults (LRU): ', lru.quantidade_page_faults)
 
     # Teste 1: oferta 1.000.000 de páginas (perfil abaixo) para 4 algoritmos e analisa page faults.
+    fifo = FIFO(QUADROS)
+    relogio = SegundaChance(QUADROS)
+    nru = NRU(QUADROS, 1000, 10000)
+    lru = LRU(QUADROS)
     print("linha", " FIFO ", "  Segunda Chance  ", " NRU  ", "   LRU")
-    for i in range(1, 201):
-        gerador = GeradorSequencia([(25, 16), (25, 8), (25, 4), (25, 2)], 1000500)
-        gerador.gera_sequencia_normal()
+    for i in range(1, ITERACOES + 1):
         embaralhada = gerador.gera_sequencia_embaralhada()
-        qtidade_quadros = 60
-        fifo = FIFO(qtidade_quadros)
-        relogio = SegundaChance(qtidade_quadros)
-        nru = NRU(qtidade_quadros, 1000, 10000)
-        lru = LRU(qtidade_quadros)
         for pagina in embaralhada:
             fifo.insere_pagina(pagina)
             relogio.insere_pagina(pagina)
@@ -47,8 +45,7 @@ if __name__ == "__main__":
               relogio.quantidade_page_faults, "    |",
               nru.quantidade_page_faults, "|",
               lru.quantidade_page_faults, "|")
-        del fifo
-        del relogio
-        del nru
-        del lru
-        gc.collect()
+        fifo.clean()
+        relogio.clean()
+        nru.clean()
+        lru.clean()

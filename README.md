@@ -5,7 +5,6 @@ Trabalho de Gerenciamento de memória para a disciplina de Sistemas Operacionais
 O código executável está localizado no main
 
 ## Bibliotecas utilizadas
-* random (geração de números pseudoaleatórios)
-* numpy (embaralhar array)
+* random (geração de números pseudoaleatórios e embaralhar array)
 * abc (criação de classes abstratas)
-* gc (garbage collector)
+
