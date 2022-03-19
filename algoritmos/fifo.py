@@ -15,10 +15,10 @@ class FIFO(AlgoritmoAbstrato):
     def insere_pagina(self, pagina):
         if pagina in self.__quadros_memoria:
             return
+        self.__quantidade_page_faults += 1
         if len(self.__quadros_memoria) < self.__quantidade_quadros:
             self.__quadros_memoria.append(pagina)
             return
-        self.__quantidade_page_faults += 1
         self.__quadros_memoria.pop(0)
         self.__quadros_memoria.append(pagina)
 
