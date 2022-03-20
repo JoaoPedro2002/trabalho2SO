@@ -22,6 +22,7 @@ if __name__ == "__main__":
 
     print("  paginas distintas ", "  FIFO ", " Segunda Chance ", " NRU  ", "  LRU")
     for i in range(1, ITERACOES + 1):
+        # Insere paginas aleatorias
         paginas_embaralhadas = gerador.gera_sequencia_embaralhada()
         for pagina in paginas_embaralhadas:
             fifo.insere_pagina(pagina)

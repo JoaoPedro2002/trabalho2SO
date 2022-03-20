@@ -13,7 +13,7 @@ class GeradorSequencia:
 
     def _gera_sequencia_normal(self):
         sequencia = [(random.randint(25, 75), 2 ** random.randint(1, 4))
-                     for _ in range(4)]
+                     for _ in range(4)] # Define um padrao aleatoria da sequencia
         multiplicador = int(self.__numero_paginas / sum(perfil[0] * perfil[1] for perfil in sequencia))
         paginas_ordenadas = []
         pagina = 0
@@ -29,5 +29,5 @@ class GeradorSequencia:
 
     def gera_sequencia_embaralhada(self):
         sequencia_embaralhada = self._gera_sequencia_normal()
-        random.shuffle(sequencia_embaralhada)
+        random.shuffle(sequencia_embaralhada) # embaralha a lista
         return sequencia_embaralhada

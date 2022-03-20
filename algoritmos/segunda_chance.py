@@ -13,6 +13,7 @@ class SegundaChance(AlgoritmoAbstrato):
         return self.__quantidade_page_faults
 
     def insere_pagina(self, pagina):
+        # Define o bit R
         self.__paginas_referenciadas[pagina] = True
         if pagina in self.__quadros_memoria:
             return
@@ -21,6 +22,7 @@ class SegundaChance(AlgoritmoAbstrato):
         if len(self.__quadros_memoria) < self.__quantidade_quadros:
             self.__quadros_memoria.append(pagina)
         else:
+            # Remove a primeira pagina com bit R = 0
             for i in range(self.__quantidade_quadros):
                 dado = self.__quadros_memoria[i]
                 if self.__paginas_referenciadas[dado]:
@@ -31,8 +33,6 @@ class SegundaChance(AlgoritmoAbstrato):
                     self.__quadros_memoria.pop(i)
                     self.__quadros_memoria.append(pagina)
                     return
-            self.__quadros_memoria.pop(0)
-            self.__quadros_memoria.append(pagina)
 
     def clean(self):
         self.__quadros_memoria = []

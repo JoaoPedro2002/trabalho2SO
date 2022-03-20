@@ -13,13 +13,15 @@ class LRU(AlgoritmoAbstrato):
 
     def insere_pagina(self, pagina):
         if pagina in self.__quadros_memoria:
+            # Coloca no começo
             self.__quadros_memoria.remove(pagina)
             self.__quadros_memoria.insert(0, pagina)
             return
         self.__quantidade_page_faults += 1
         if len(self.__quadros_memoria) < self.__quantidade_quadros:
-            self.__quadros_memoria.append(pagina)
+            self.__quadros_memoria.insert(0, pagina)
             return
+        # Remove a ultima
         self.__quadros_memoria.pop()
         self.__quadros_memoria.insert(0, pagina)
 
